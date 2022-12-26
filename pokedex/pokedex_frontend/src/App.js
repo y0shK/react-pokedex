@@ -1,27 +1,70 @@
 import logo from './logo.svg';
 import './App.css';
 
+async function GetPokemonInfo() {
+    const url = 'http://localhost:8000/pokedex_app/pkmn_info'
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data['moves']);
+
+      var data_moves = data['moves']
+
+      var arrayLength = data_moves.length;
+      var moves = []
+
+    // https://stackoverflow.com/questions/3010840/loop-through-an-array-in-javascript
+    for (var i = 0; i < arrayLength; i++) {
+      console.log(data_moves[i]['move']['name'])
+
+      // https://stackoverflow.com/questions/351409/how-to-append-something-to-an-array
+      moves.push(data_moves[i]['move']['name'])
+    }
+
+    console.log(moves)
+
+    return moves
+
+   
+
+      // Do some stuff with data dict
+  } catch (error) {
+      console.error(error);
+  }
+
+  
+}
+// console.log(GetPokemonInfo())
+
+// https://stackoverflow.com/questions/32157286/rendering-react-components-from-array-of-objects/64827479#64827479
+// {GetPokemonInfo().map(move => <div key={move}> {move} </div>)}
+// GetPokemonInfo().then(function(result) {
+  // result.map(move => <div key={move}> {move} </div>)
+// });
+// { moves.map(move => <div key={move}> {move} </div>) }
+
+// https://stackoverflow.com/questions/29516390/how-can-i-access-the-value-of-a-promise
+
 function App() {
+
+  GetPokemonInfo().then(function(response) {
+
+    var moves = response;
+    console.log(moves)
+    
+
+    
+
+  });
+  
+  
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello world! We've successfully merged React frontend with Django backend!
-          This file is being run from backend localhost 127.0.0.1:8000 rather than frontend port 3000
-          FIXME later!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        
     </div>
-  );
+  );  
+
 }
 
 export default App;
